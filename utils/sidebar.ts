@@ -1,4 +1,11 @@
-import { Code, House, Trophy } from "@phosphor-icons/react";
+import {
+  BookOpenText,
+  Code,
+  Gear,
+  House,
+  Trophy,
+  User,
+} from "@phosphor-icons/react";
 
 export const sidebarItems = [
   {
@@ -15,5 +22,23 @@ export const sidebarItems = [
     label: "Leaderboard",
     icon: Trophy,
     href: "/leaderboard",
+  },
+  {
+    label: "Resources",
+    icon: BookOpenText,
+    href: "/resources",
+  },
+];
+
+export const userMenu = [
+  {
+    label: "Profile",
+    icon: User,
+    href: "/profile",
+  },
+  {
+    label: "Settings",
+    icon: Gear,
+    href: "/settings",
   },
 ];

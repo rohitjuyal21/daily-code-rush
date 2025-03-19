@@ -1,50 +1,101 @@
 "use client";
 import React from "react";
 import Logo from "../Logo";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import UserSection from "./UserSection";
 import { Button } from "../ui/button";
-import { PanelRightOpen } from "lucide-react";
+import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
 import { sidebarItems } from "@/utils/sidebar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui";
+import SidebarItem from "./SidebarItem";
 
-export default function AppSidebar() {
+interface AppSidebarProps {
+  isSidebarCollapsed: boolean;
+  setIsSidebarCollapsed: (isCollapsed: boolean) => void;
+}
+
+export default function AppSidebar({
+  isSidebarCollapsed,
+  setIsSidebarCollapsed,
+}: AppSidebarProps) {
   const pathname = usePathname();
 
+  const handleToggleSidebar = () => {
+    const isCollapsed = !isSidebarCollapsed;
+    setIsSidebarCollapsed(isCollapsed);
+    localStorage.setItem("isSidebarCollapsed", isCollapsed.toString());
+  };
+
   return (
-    <aside className="fixed top-0 bottom-0 left-0 flex h-screen w-72 flex-col border-r py-6">
-      <div className="flex-1 px-4">
-        <div className="flex items-center justify-between gap-2">
-          <Logo />
-          <Button variant="ghost" size="icon" className="text-muted-foreground">
-            <PanelRightOpen className="size-5" />
+    <aside
+      className={cn(
+        "fixed top-0 bottom-0 left-0 flex h-screen flex-col border-r py-6 transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "w-[72px]" : "w-72",
+      )}
+    >
+      <div className={cn(isSidebarCollapsed ? "px-3" : "px-4")}>
+        <div
+          className={cn(
+            "flex items-center gap-2",
+            isSidebarCollapsed ? "justify-center" : "justify-between",
+          )}
+        >
+          {!isSidebarCollapsed && <Logo />}
+          <Button
+            onClick={handleToggleSidebar}
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground"
+          >
+            {isSidebarCollapsed ? (
+              <PanelLeftOpen className="size-5" />
+            ) : (
+              <PanelRightOpen className="size-5" />
+            )}
           </Button>
         </div>
 
         <ul className="mt-8 space-y-2">
           {sidebarItems.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "text-muted-foreground hover:text-foreground group flex items-center gap-2 rounded-md px-4 py-2",
-                  pathname === item.href
-                    ? "bg-muted/50 text-foreground to-muted/70 from-muted/30 border bg-gradient-to-b"
-                    : "hover:bg-muted/50 border border-transparent",
-                )}
-              >
-                <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5">
-                  <item.icon />
-                </span>
-                <span className="text-sm font-medium">{item.label}</span>
-              </Link>
+            <li key={item.label} className="flex w-full justify-center">
+              {isSidebarCollapsed ? (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <SidebarItem
+                        href={item.href}
+                        pathname={pathname}
+                        isSidebarCollapsed={isSidebarCollapsed}
+                        icon={<item.icon />}
+                        label={item.label}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>{item.label}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              ) : (
+                <SidebarItem
+                  href={item.href}
+                  pathname={pathname}
+                  isSidebarCollapsed={isSidebarCollapsed}
+                  icon={<item.icon />}
+                  label={item.label}
+                />
+              )}
             </li>
           ))}
         </ul>
       </div>
-      <div className="px-2">
-        <UserSection />
+      <div className="mt-auto px-2">
+        <UserSection isSidebarCollapsed={isSidebarCollapsed} />
       </div>
     </aside>
   );

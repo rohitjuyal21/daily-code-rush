@@ -2,26 +2,18 @@
 
 import React from "react";
 import UserDetail from "./UserDetail";
-import { CaretRight, Gear, SignOut, User } from "@phosphor-icons/react";
+import { CaretRight, SignOut } from "@phosphor-icons/react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { userMenu } from "@/utils/sidebar";
 
-const userMenu = [
-  {
-    label: "Profile",
-    icon: <User />,
-    href: "/profile",
-  },
-  {
-    label: "Settings",
-    icon: <Gear />,
-    href: "/settings",
-  },
-];
+interface UserSectionProps {
+  isSidebarCollapsed: boolean;
+}
 
-export default function UserSection() {
+export default function UserSection({ isSidebarCollapsed }: UserSectionProps) {
   const { status } = useSession();
 
   const handleLogout = () => {
@@ -36,14 +28,16 @@ export default function UserSection() {
           <PopoverTrigger asChild>
             <div className="from-muted/30 to-muted/70 hover:border-border group flex cursor-pointer items-center gap-2 rounded-md border border-transparent p-2 hover:bg-gradient-to-b">
               <div className="flex-1">
-                <UserDetail />
+                <UserDetail isSidebarCollapsed={isSidebarCollapsed} />
               </div>
-              <div className="transition-transform duration-300 ease-in-out group-hover:translate-x-0.5">
-                <CaretRight className="text-sm" />
-              </div>
+              {!isSidebarCollapsed && (
+                <div className="transition-transform duration-300 ease-in-out group-hover:translate-x-0.5">
+                  <CaretRight className="text-sm" />
+                </div>
+              )}
             </div>
           </PopoverTrigger>
-          <PopoverContent side="right" className="px-0 py-4">
+          <PopoverContent side="right" className="mb-6 px-0 py-4">
             <div className="mb-4 px-4">
               <UserDetail />
             </div>
@@ -55,7 +49,7 @@ export default function UserSection() {
                     className="text-muted-foreground hover:text-foreground group hover:bg-muted/50 flex items-center gap-2 rounded-md px-4 py-2"
                   >
                     <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5">
-                      {item.icon}
+                      <item.icon />
                     </span>
                     <span className="text-sm font-medium">{item.label}</span>
                   </Link>

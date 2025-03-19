@@ -2,7 +2,11 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui";
 import { useSession } from "next-auth/react";
 
-export default function UserDetail() {
+interface UserDetailProps {
+  isSidebarCollapsed?: boolean;
+}
+
+export default function UserDetail({ isSidebarCollapsed }: UserDetailProps) {
   const { data: session } = useSession();
   return (
     <div className="flex items-center gap-2">
@@ -18,14 +22,16 @@ export default function UserDetail() {
           {session?.user?.name?.split(" ")[1]?.charAt(0).toUpperCase()}
         </AvatarFallback>
       </Avatar>
-      <div className="max-w-[180px]">
-        <p className="truncate pb-0.5 text-sm font-semibold">
-          {session?.user?.name}
-        </p>
-        <p className="text-muted-foreground truncate text-xs font-medium">
-          {session?.user?.email}
-        </p>
-      </div>
+      {!isSidebarCollapsed && (
+        <div className="max-w-[180px]">
+          <p className="truncate pb-0.5 text-sm font-semibold">
+            {session?.user?.name}
+          </p>
+          <p className="text-muted-foreground truncate text-xs font-medium">
+            {session?.user?.email}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

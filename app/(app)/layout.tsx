@@ -1,14 +1,5 @@
-"use client";
-import AppSidebar from "@/components/Sidebar/AppSidebar";
-import React, { useState } from "react";
+import MainLayout from "@/layout/MainLayout";
 
-export default function layout({ children }: { children: React.ReactNode }) {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
-  return (
-    <div className="flex">
-      <AppSidebar />
-      <main className="ml-72 p-6">{children}</main>
-    </div>
-  );
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <MainLayout>{children}</MainLayout>;
 }
