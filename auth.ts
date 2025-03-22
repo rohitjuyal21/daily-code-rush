@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Github from "next-auth/providers/github";
+import { dbConnect } from "./lib/dbConnect";
+import { User } from "./models/User";
 
 const privateRoutes = [
   "/dashboard",
@@ -24,6 +26,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (isLoggedIn && nextUrl.pathname === "/login") {
         return Response.redirect(new URL("/dashboard", nextUrl));
       }
+      return true;
+    },
+
+    signIn: async ({ user, account }) => {
+      await dbConnect();
+      const existingUser = await User.findOne({
+        email: user.email,
+        provider: account?.provider,
+        providerAccountId: account?.providerAccountId,
+      });
+      if (!existingUser) {
+        await User.create({
+          username: user.name,
+          email: user.email,
+          provider: account?.provider,
+          providerAccountId: account?.providerAccountId,
+          profilePicture: user.image,
+        });
+      }
+
       return true;
     },
   },

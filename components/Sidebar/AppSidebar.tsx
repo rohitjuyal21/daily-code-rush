@@ -14,6 +14,7 @@ import {
   TooltipTrigger,
 } from "../ui";
 import SidebarItem from "./SidebarItem";
+import SidebarThemeToggle from "./SidebarThemeToggle";
 
 interface AppSidebarProps {
   isSidebarCollapsed: boolean;
@@ -42,11 +43,18 @@ export default function AppSidebar({
       <div className={cn(isSidebarCollapsed ? "px-3" : "px-4")}>
         <div
           className={cn(
-            "flex items-center gap-2",
-            isSidebarCollapsed ? "justify-center" : "justify-between",
+            "flex items-center",
+            isSidebarCollapsed ? "justify-center" : "justify-between gap-2",
           )}
         >
-          {!isSidebarCollapsed && <Logo />}
+          <div
+            className={cn(
+              "overflow-hidden transition-all duration-300 ease-in-out",
+              isSidebarCollapsed ? "w-0 opacity-0" : "w-full opacity-100",
+            )}
+          >
+            <Logo />
+          </div>
           <Button
             onClick={handleToggleSidebar}
             variant="ghost"
@@ -94,7 +102,8 @@ export default function AppSidebar({
           ))}
         </ul>
       </div>
-      <div className="mt-auto px-2">
+      <div className="mt-auto space-y-4 px-2">
+        <SidebarThemeToggle isSidebarCollapsed={isSidebarCollapsed} />
         <UserSection isSidebarCollapsed={isSidebarCollapsed} />
       </div>
     </aside>

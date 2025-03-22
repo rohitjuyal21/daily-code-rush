@@ -35,7 +35,7 @@ export default function MainLayout({
       />
       <main
         className={cn(
-          "p-6 transition-all duration-300 ease-in-out",
+          "flex-1 p-6 transition-all duration-300 ease-in-out",
           isSidebarCollapsed ? "ml-[72px]" : "ml-72",
         )}
       >

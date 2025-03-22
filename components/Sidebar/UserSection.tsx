@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import UserDetail from "./UserDetail";
 import { CaretRight, SignOut } from "@phosphor-icons/react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui";
@@ -15,16 +15,21 @@ interface UserSectionProps {
 
 export default function UserSection({ isSidebarCollapsed }: UserSectionProps) {
   const { status } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
     signOut({ redirectTo: "/login" });
     toast.success("Logged out successfully");
   };
 
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       {status === "authenticated" && (
-        <Popover>
+        <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
             <div className="from-muted/30 to-muted/70 hover:border-border group flex cursor-pointer items-center gap-2 rounded-md border border-transparent p-2 hover:bg-gradient-to-b">
               <div className="flex-1">
@@ -41,11 +46,12 @@ export default function UserSection({ isSidebarCollapsed }: UserSectionProps) {
             <div className="mb-4 px-4">
               <UserDetail />
             </div>
-            <ul className="px-2">
+            <ul className="space-y-1 px-2">
               {userMenu.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
+                    onClick={handleLinkClick}
                     className="text-muted-foreground hover:text-foreground group hover:bg-muted/50 flex items-center gap-2 rounded-md px-4 py-2"
                   >
                     <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5">
