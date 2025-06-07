@@ -3,7 +3,6 @@ import React from "react";
 import Logo from "../Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import UserSection from "./UserSection";
 import { Button } from "../ui/button";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
 import { sidebarItems } from "@/utils/sidebar";
@@ -13,8 +12,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui";
-import SidebarItem from "./SidebarItem";
 import SidebarThemeToggle from "./SidebarThemeToggle";
+import UserSection from "./UserSection";
+import SidebarItem from "./SidebarItem";
 
 interface AppSidebarProps {
   isSidebarCollapsed: boolean;

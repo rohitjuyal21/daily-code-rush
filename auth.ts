@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Github from "next-auth/providers/github";
-import { dbConnect } from "./lib/dbConnect";
-import { User } from "./models/User";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "./lib/prisma";
 
 const privateRoutes = [
   "/dashboard",
@@ -14,6 +14,7 @@ const privateRoutes = [
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, Github],
+  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/login",
   },
@@ -28,25 +29,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-
-    signIn: async ({ user, account }) => {
-      await dbConnect();
-      const existingUser = await User.findOne({
-        email: user.email,
-        provider: account?.provider,
-        providerAccountId: account?.providerAccountId,
-      });
-      if (!existingUser) {
-        await User.create({
-          username: user.name,
-          email: user.email,
-          provider: account?.provider,
-          providerAccountId: account?.providerAccountId,
-          profilePicture: user.image,
-        });
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
       }
-
-      return true;
+      return token;
     },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
+  session: {
+    strategy: "jwt",
   },
 });

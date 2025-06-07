@@ -31,7 +31,9 @@ export default function SidebarItem({
       <span
         className={cn(
           "text-xl transition-transform duration-300 ease-in-out",
-          !isSidebarCollapsed && "group-hover:-translate-x-0.5",
+          !isSidebarCollapsed
+            ? "group-hover:-translate-x-0.5 group-hover:-rotate-[10deg]"
+            : "group-hover:-rotate-[10deg]",
         )}
       >
         {icon}

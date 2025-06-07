@@ -1,8 +1,7 @@
 "use client";
-
 import React, { useState } from "react";
 import UserDetail from "./UserDetail";
-import { CaretRight, SignOut } from "@phosphor-icons/react";
+import { CaretRightIcon, SignOutIcon } from "@phosphor-icons/react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
@@ -37,7 +36,7 @@ export default function UserSection({ isSidebarCollapsed }: UserSectionProps) {
               </div>
               {!isSidebarCollapsed && (
                 <div className="transition-transform duration-300 ease-in-out group-hover:translate-x-0.5">
-                  <CaretRight className="text-sm" />
+                  <CaretRightIcon className="text-sm" />
                 </div>
               )}
             </div>
@@ -54,7 +53,7 @@ export default function UserSection({ isSidebarCollapsed }: UserSectionProps) {
                     onClick={handleLinkClick}
                     className="text-muted-foreground hover:text-foreground group hover:bg-muted/50 flex items-center gap-2 rounded-md px-4 py-2"
                   >
-                    <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5">
+                    <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5 group-hover:-rotate-[10deg]">
                       <item.icon />
                     </span>
                     <span className="text-sm font-medium">{item.label}</span>
@@ -64,10 +63,10 @@ export default function UserSection({ isSidebarCollapsed }: UserSectionProps) {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="text-muted-foreground hover:text-foreground group hover:bg-muted/50 flex w-full cursor-pointer items-center gap-2 rounded-md border-none px-4 py-2 outline-none"
+                  className="group flex w-full cursor-pointer items-center gap-2 rounded-md border-none px-4 py-2 text-red-700/90 outline-none hover:bg-red-700/10 hover:text-red-700"
                 >
-                  <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5">
-                    <SignOut />
+                  <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5 group-hover:-rotate-[10deg]">
+                    <SignOutIcon />
                   </span>
                   <span className="text-sm font-medium">Logout</span>
                 </button>

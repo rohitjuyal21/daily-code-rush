@@ -1,18 +1,16 @@
 import { z } from "zod";
 
 export const profileFormSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters" }),
+  name: z.string().min(3, { message: "Name must be at least 3 characters" }),
   email: z.string().email({ message: "Invalid email address" }),
   bio: z.string(),
-  profilePicture: z.string(),
+  profilePicture: z.string().optional(),
   website: z
     .string()
     .url({ message: "Please enter a valid URL" })
     .or(z.literal("")),
-  github: z.string(),
-  twitter: z.string(),
-  linkedin: z.string(),
-  peerlist: z.string(),
+  github: z.string().optional(),
+  twitter: z.string().optional(),
+  linkedin: z.string().optional(),
+  peerlist: z.string().optional(),
 });
