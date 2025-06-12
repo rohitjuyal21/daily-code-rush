@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../Logo";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
@@ -15,22 +15,27 @@ import {
 import SidebarThemeToggle from "./SidebarThemeToggle";
 import UserSection from "./UserSection";
 import SidebarItem from "./SidebarItem";
+import Cookies from "js-cookie";
+import { Socials, User } from "@/app/generated/prisma";
 
 interface AppSidebarProps {
   isSidebarCollapsed: boolean;
-  setIsSidebarCollapsed: (isCollapsed: boolean) => void;
+  user: User | (null & Socials) | null;
 }
 
 export default function AppSidebar({
   isSidebarCollapsed,
-  setIsSidebarCollapsed,
+  user,
 }: AppSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [collapsed, setCollapsed] = useState(isSidebarCollapsed);
 
   const handleToggleSidebar = () => {
-    const isCollapsed = !isSidebarCollapsed;
-    setIsSidebarCollapsed(isCollapsed);
-    localStorage.setItem("isSidebarCollapsed", isCollapsed.toString());
+    const newValue = !collapsed;
+    setCollapsed(newValue);
+    Cookies.set("isSidebarCollapsed", String(newValue));
+    router.refresh();
   };
 
   return (
@@ -104,7 +109,7 @@ export default function AppSidebar({
       </div>
       <div className="mt-auto space-y-4 px-2">
         <SidebarThemeToggle isSidebarCollapsed={isSidebarCollapsed} />
-        <UserSection isSidebarCollapsed={isSidebarCollapsed} />
+        <UserSection isSidebarCollapsed={isSidebarCollapsed} user={user} />
       </div>
     </aside>
   );

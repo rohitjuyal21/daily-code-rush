@@ -4,7 +4,7 @@ export const profileFormSchema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters" }),
   email: z.string().email({ message: "Invalid email address" }),
   bio: z.string(),
-  profilePicture: z.string().optional(),
+  profileImage: z.string().optional(),
   website: z
     .string()
     .url({ message: "Please enter a valid URL" })

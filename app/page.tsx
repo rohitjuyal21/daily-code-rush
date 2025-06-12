@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Home() {
   const { data: session } = useSession();
-  console.log(session);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4">
       {session?.user?.name}

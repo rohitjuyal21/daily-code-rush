@@ -1,12 +1,15 @@
 "use client";
 
 import { profileFormSchema } from "@/utils/schema";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageHeader from "@/components/PageHeader";
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Button,
   Form,
   FormControl,
@@ -15,53 +18,79 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Skeleton,
   Textarea,
 } from "@/components/ui";
-import Image from "next/image";
 import axios from "@/lib/axios";
 import { Session } from "next-auth";
 import { cn } from "@/lib/utils";
 import { socialsInput } from "@/app/utils/settings";
+import { Socials, User } from "@/app/generated/prisma";
+import { toast } from "sonner";
+import { ApiResponse } from "@/types/api";
+import { useRouter } from "next/navigation";
 
 type ProfileFormData = z.infer<typeof profileFormSchema>;
 
-export default function Settings({ session }: { session: Session | null }) {
+interface SettingsProps {
+  session: Session | null;
+  user: (User & { socials: Socials | null }) | null;
+}
+
+export default function Settings({ session, user }: SettingsProps) {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: session?.user?.name || "",
-      email: session?.user?.email || "",
-      bio: "",
-      profilePicture: session?.user?.image || "",
-      website: "",
-      github: "",
-      twitter: "",
-      linkedin: "",
-      peerlist: "",
+      name: user?.name || session?.user?.name || "",
+      email: user?.email || session?.user?.email || "",
+      bio: user?.bio || "",
+      profileImage: user?.profileImage || session?.user?.image || "",
+      website: user?.socials?.website || "",
+      github: user?.socials?.github || "",
+      twitter: user?.socials?.twitter || "",
+      linkedin: user?.socials?.linkedin || "",
+      peerlist: user?.socials?.peerlist || "",
     },
   });
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        console.log(reader.result);
-        form.setValue("profilePicture", reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await axios.post("/upload/image", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response.data);
+
+      form.setValue("profileImage", response.data.url);
+      toast.success("Image uploaded!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to upload image");
+    } finally {
+      setIsUploading(false);
     }
   };
-
   const onSubmit = async (data: ProfileFormData) => {
-    console.log(data);
+    setIsLoading(true);
     try {
-      const response = await axios.put("/me", {
+      const response = await axios.put<ApiResponse<User>>("/me", {
         name: data.name,
         email: data.email,
-        profilePicture: data.profilePicture,
+        profileImage: data.profileImage,
         website: data.website,
         bio: data.bio,
         github: data.github,
@@ -69,9 +98,18 @@ export default function Settings({ session }: { session: Session | null }) {
         linkedin: data.linkedin,
         peerlist: data.peerlist,
       });
-      console.log(response);
+
+      if (response.data.status === "success") {
+        toast.success("Profile updated successfully");
+        router.refresh();
+      } else {
+        toast.error("Failed to update profile");
+      }
     } catch (error) {
       console.error(error);
+      toast.error("Failed to update profile");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -91,7 +129,7 @@ export default function Settings({ session }: { session: Session | null }) {
             <div className="space-y-6 border-b pb-6">
               <FormField
                 control={form.control}
-                name="profilePicture"
+                name="profileImage"
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center gap-2">
@@ -101,23 +139,21 @@ export default function Settings({ session }: { session: Session | null }) {
                       <div className="relative flex-1">
                         <FormControl>
                           <div className="flex items-center gap-4">
-                            <div className="h-[80px] w-[80px] overflow-hidden rounded-full">
-                              {field.value || session?.user?.image ? (
-                                <Image
-                                  src={
-                                    field.value || session?.user?.image || ""
-                                  }
-                                  alt={session?.user?.name || ""}
-                                  width={80}
-                                  height={80}
+                            <div className="relative h-20 w-20 overflow-hidden rounded-full">
+                              <Avatar className="h-20 w-20">
+                                <AvatarImage
+                                  src={field.value || ""}
+                                  className="object-cover"
                                 />
-                              ) : (
-                                <Skeleton className="h-[80px] w-[80px] rounded-full" />
-                              )}
+                                <AvatarFallback className="text-3xl font-bold">
+                                  {session?.user?.name?.[0]}
+                                </AvatarFallback>
+                              </Avatar>
                             </div>
                             <Button
                               type="button"
                               variant="outline"
+                              isLoading={isUploading}
                               onClick={() => imageInputRef.current?.click()}
                             >
                               Change
@@ -125,6 +161,7 @@ export default function Settings({ session }: { session: Session | null }) {
                             <Input
                               ref={imageInputRef}
                               type="file"
+                              accept="image/*"
                               className="hidden"
                               onChange={handleImageChange}
                             />
@@ -240,6 +277,7 @@ export default function Settings({ session }: { session: Session | null }) {
                             </span>
                             <input
                               id={name}
+                              autoComplete="off"
                               {...field}
                               className="flex-1 border-none bg-transparent outline-none md:text-sm"
                             />
@@ -256,7 +294,13 @@ export default function Settings({ session }: { session: Session | null }) {
               <Button variant="destructive" type="button">
                 Delete Account
               </Button>
-              <Button type="submit">Save Changes</Button>
+              <Button
+                type="submit"
+                isLoading={isLoading}
+                loadingText="Saving changes..."
+              >
+                Save Changes
+              </Button>
             </div>
           </form>
         </Form>

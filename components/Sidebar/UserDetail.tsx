@@ -1,22 +1,26 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui";
 import { useSession } from "next-auth/react";
+import { Socials, User } from "@/app/generated/prisma";
 
 interface UserDetailProps {
   isSidebarCollapsed?: boolean;
+  user: User | (null & Socials) | null;
 }
 
-export default function UserDetail({ isSidebarCollapsed }: UserDetailProps) {
+export default function UserDetail({
+  isSidebarCollapsed,
+  user,
+}: UserDetailProps) {
   const { data: session } = useSession();
   return (
     <div className="flex items-center gap-2">
       <Avatar className="h-10 w-10">
-        {session?.user?.image && (
-          <AvatarImage
-            src={session?.user?.image}
-            alt={session?.user?.name || ""}
-          />
-        )}
+        <AvatarImage
+          src={user?.profileImage || session?.user?.image || ""}
+          alt={user?.name || session?.user?.name || ""}
+        />
+
         <AvatarFallback>
           {session?.user?.name?.charAt(0).toUpperCase()}
           {session?.user?.name?.split(" ")[1]?.charAt(0).toUpperCase()}
