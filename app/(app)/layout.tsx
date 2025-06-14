@@ -20,7 +20,7 @@ export default async function AppLayout({
       <main
         className={cn(
           "flex-1 p-6 transition-all duration-300 ease-in-out",
-          isSidebarCollapsed ? "ml-[72px]" : "ml-72",
+          isSidebarCollapsed ? "ml-[72px]" : "ml-64",
         )}
       >
         {children}

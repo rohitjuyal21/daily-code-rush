@@ -42,10 +42,10 @@ export default function AppSidebar({
     <aside
       className={cn(
         "fixed top-0 bottom-0 left-0 flex h-screen flex-col border-r py-6 transition-all duration-300 ease-in-out",
-        isSidebarCollapsed ? "w-[72px]" : "w-72",
+        isSidebarCollapsed ? "w-[72px]" : "w-64",
       )}
     >
-      <div className={cn(isSidebarCollapsed ? "px-3" : "px-4")}>
+      <div className={cn(isSidebarCollapsed ? "px-1" : "px-2")}>
         <div
           className={cn(
             "flex items-center",
@@ -55,7 +55,7 @@ export default function AppSidebar({
           <div
             className={cn(
               "overflow-hidden transition-all duration-300 ease-in-out",
-              isSidebarCollapsed ? "w-0 opacity-0" : "w-full opacity-100",
+              isSidebarCollapsed ? "w-0 opacity-0" : "w-full pl-3 opacity-100",
             )}
           >
             <Logo />

@@ -59,7 +59,7 @@ export default function UserSection({
                   <Link
                     href={item.href}
                     onClick={handleLinkClick}
-                    className="text-muted-foreground hover:text-foreground group hover:bg-muted/50 flex items-center gap-2 rounded-md px-4 py-2"
+                    className="text-muted-foreground hover:text-foreground group hover:bg-muted/50 flex items-center gap-2 rounded-md px-3 py-2"
                   >
                     <span className="text-xl transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5 group-hover:-rotate-[10deg]">
                       <item.icon />

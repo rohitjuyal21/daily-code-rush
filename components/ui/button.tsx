@@ -58,8 +58,10 @@ function Button({
       disabled={isLoading}
       {...props}
     >
-      {isLoading && <Loader2 className="size-4 animate-spin" />}
-      {isLoading ? loadingText : props.children}
+      <span className="flex items-center gap-2">
+        {isLoading && <Loader2 className="size-4 animate-spin" />}
+        {isLoading ? loadingText : props.children}
+      </span>
     </Comp>
   );
 }

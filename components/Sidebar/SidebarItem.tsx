@@ -25,7 +25,7 @@ export default function SidebarItem({
         pathname === href
           ? "bg-muted/50 text-foreground to-muted/70 from-muted/30 border bg-gradient-to-b"
           : "hover:bg-muted/50 border border-transparent",
-        isSidebarCollapsed ? "w-fit justify-center p-2" : "w-full px-4 py-2",
+        isSidebarCollapsed ? "w-fit justify-center p-2" : "w-full px-3 py-2",
       )}
     >
       <span

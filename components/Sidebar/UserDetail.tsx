@@ -27,7 +27,7 @@ export default function UserDetail({
         </AvatarFallback>
       </Avatar>
       {!isSidebarCollapsed && (
-        <div className="max-w-[180px]">
+        <div className="max-w-[156px]">
           <p className="truncate pb-0.5 text-sm font-semibold">
             {session?.user?.name}
           </p>

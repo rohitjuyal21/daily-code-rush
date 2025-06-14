@@ -22,7 +22,7 @@ export default function SidebarThemeToggle({
     <div
       className={cn(
         "flex items-center justify-between gap-2 py-2 hover:bg-transparent",
-        isSidebarCollapsed ? "justify-center" : "justify-between px-4",
+        isSidebarCollapsed ? "justify-center" : "justify-between px-3",
       )}
     >
       <div

@@ -1,23 +1,24 @@
-"use client";
+import { cn } from "@/lib/utils";
 
-import { useTheme } from "next-themes";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-export default function LogoIcon() {
-  const { theme } = useTheme();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    setIsDark(theme === "dark");
-  }, [theme]);
-
+export default function LogoIcon({ className }: { className?: string }) {
   return (
-    <Image
-      src={isDark ? "/assets/logo.png" : "/assets/logo-dark.png"}
-      alt="logo"
-      width={30}
-      height={30}
-    />
+    <>
+      <Image
+        src={"/assets/logo.png"}
+        alt="logo"
+        width={30}
+        height={30}
+        className={cn("hidden dark:block", className)}
+      />
+      <Image
+        src={"/assets/logo-dark.png"}
+        alt="logo"
+        width={30}
+        height={30}
+        className={cn("block dark:hidden", className)}
+      />
+    </>
   );
 }
