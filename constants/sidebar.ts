@@ -1,31 +1,31 @@
 import {
-  BookOpenText,
-  Code,
-  Gear,
-  House,
-  Trophy,
-  User,
-} from "@phosphor-icons/react";
+  BookOpenTextIcon,
+  CodeIcon,
+  GearIcon,
+  HouseIcon,
+  TrophyIcon,
+  UserIcon,
+} from "@phosphor-icons/react/dist/ssr";
 
 export const sidebarItems = [
   {
     label: "Dashboard",
-    icon: House,
+    icon: HouseIcon,
     href: "/dashboard",
   },
   {
     label: "Challenges",
-    icon: Code,
+    icon: CodeIcon,
     href: "/challenges",
   },
   {
     label: "Leaderboard",
-    icon: Trophy,
+    icon: TrophyIcon,
     href: "/leaderboard",
   },
   {
     label: "Resources",
-    icon: BookOpenText,
+    icon: BookOpenTextIcon,
     href: "/resources",
   },
 ];
@@ -33,12 +33,12 @@ export const sidebarItems = [
 export const userMenu = [
   {
     label: "Profile",
-    icon: User,
+    icon: UserIcon,
     href: "/profile",
   },
   {
     label: "Settings",
-    icon: Gear,
+    icon: GearIcon,
     href: "/settings",
   },
 ];

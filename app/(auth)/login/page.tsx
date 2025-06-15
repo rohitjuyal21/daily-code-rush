@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui";
 import Image from "next/image";
 import React from "react";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/common/ThemeToggle";
 import Logo from "@/components/Logo";
 
 export default function page() {

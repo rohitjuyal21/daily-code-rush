@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
-import { sidebarItems } from "@/utils/sidebar";
+import { sidebarItems } from "@/constants/sidebar";
 import {
   Tooltip,
   TooltipContent,
@@ -16,11 +16,11 @@ import SidebarThemeToggle from "./SidebarThemeToggle";
 import UserSection from "./UserSection";
 import SidebarItem from "./SidebarItem";
 import Cookies from "js-cookie";
-import { Socials, User } from "@/app/generated/prisma";
+import { BasicUser } from "@/types";
 
 interface AppSidebarProps {
   isSidebarCollapsed: boolean;
-  user: User | (null & Socials) | null;
+  user: BasicUser | null;
 }
 
 export default function AppSidebar({
@@ -41,7 +41,7 @@ export default function AppSidebar({
   return (
     <aside
       className={cn(
-        "fixed top-0 bottom-0 left-0 flex h-screen flex-col border-r py-6 transition-all duration-300 ease-in-out",
+        "fixed top-0 bottom-0 left-0 hidden h-screen flex-col border-r py-6 transition-all duration-300 ease-in-out lg:flex",
         isSidebarCollapsed ? "w-[72px]" : "w-64",
       )}
     >

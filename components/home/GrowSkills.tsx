@@ -8,10 +8,10 @@ export default function GrowSkills() {
       <div className="absolute top-1/2 left-0 h-[700px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-3xl"></div>
       <div className="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
         <div>
-          <h2 className="mb-4 text-4xl font-bold text-balance">
+          <h2 className="mb-4 text-center text-4xl font-bold text-balance md:text-left">
             Level Up with Real-World Skills
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-center text-lg text-balance md:text-right">
             Dive into hands-on coding experiences that go beyond theory. Build
             real projects, explore new tools, and strengthen your
             problem-solving skills—all while preparing yourself for real-world
@@ -19,7 +19,6 @@ export default function GrowSkills() {
           </p>
         </div>
 
-        {/* Right side - image or illustration placeholder */}
         <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden">
           <OrbitingCircles>
             <Image src="/assets/react.svg" alt="react" width={50} height={50} />

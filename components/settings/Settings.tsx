@@ -24,16 +24,19 @@ import axios from "@/lib/axios";
 import { Session } from "next-auth";
 import { cn } from "@/lib/utils";
 import { socialsInput } from "@/app/utils/settings";
-import { Socials, User } from "@/app/generated/prisma";
+import { User } from "@/app/generated/prisma";
 import { toast } from "sonner";
 import { ApiResponse } from "@/types/api";
 import { useRouter } from "next/navigation";
+import { FullUser } from "@/types";
+import { LoadingButton } from "../ui/loading-button";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 
 type ProfileFormData = z.infer<typeof profileFormSchema>;
 
 interface SettingsProps {
   session: Session | null;
-  user: (User & { socials: Socials | null }) | null;
+  user: FullUser | null;
 }
 
 export default function Settings({ session, user }: SettingsProps) {
@@ -150,14 +153,14 @@ export default function Settings({ session, user }: SettingsProps) {
                                 </AvatarFallback>
                               </Avatar>
                             </div>
-                            <Button
+                            <LoadingButton
                               type="button"
                               variant="outline"
-                              isLoading={isUploading}
+                              loading={isUploading}
                               onClick={() => imageInputRef.current?.click()}
                             >
                               Change
-                            </Button>
+                            </LoadingButton>
                             <Input
                               ref={imageInputRef}
                               type="file"
@@ -294,13 +297,13 @@ export default function Settings({ session, user }: SettingsProps) {
               <Button variant="destructive" type="button">
                 Delete Account
               </Button>
-              <Button
+              <LoadingButton
                 type="submit"
-                isLoading={isLoading}
+                loading={isLoading}
                 loadingText="Saving changes..."
               >
-                Save Changes
-              </Button>
+                Save Changes <ArrowRightIcon />
+              </LoadingButton>
             </div>
           </form>
         </Form>

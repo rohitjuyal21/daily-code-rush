@@ -27,15 +27,15 @@ const Features = [
 
 export default function FeatureSection() {
   return (
-    <section className="px-6 py-20">
+    <section className="px-4 py-20 md:px-6">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold">How it works</h2>
-          <p className="text-muted-foreground text-lg">
+        <div className="mb-8 text-center md:mb-16">
+          <h2 className="mb-4 text-center text-4xl font-bold">How it works</h2>
+          <p className="text-muted-foreground text-center text-lg text-balance">
             Everything you need to level up your coding skills
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {Features.map((feature) => (
             <div
               key={feature.title}

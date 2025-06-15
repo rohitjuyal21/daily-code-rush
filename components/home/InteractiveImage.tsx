@@ -36,9 +36,9 @@ export default function InteractiveImage() {
   };
 
   return (
-    <div className="relative z-10 p-6">
+    <div className="relative z-10 p-4 md:p-6">
       <motion.div
-        className="relative mx-auto max-w-3xl rounded-xl border border-black/10 bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-[0_0_40px_6px_rgba(59,130,246,0.2)] dark:border-white/10 dark:bg-black"
+        className="relative mx-auto max-w-3xl rounded-xl border border-black/10 bg-gray-50 p-4 shadow-lg transition-shadow duration-300 hover:shadow-[0_0_40px_6px_rgba(59,130,246,0.2)] md:p-6 dark:border-white/10 dark:bg-black"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseHover}
         onMouseLeave={handleMouseLeave}

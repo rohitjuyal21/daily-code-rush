@@ -3,15 +3,15 @@ import { Button } from "../ui";
 
 export default function HeroSection() {
   return (
-    <section className="relative z-10 flex items-center justify-center overflow-hidden [background-image:linear-gradient(to_right,#EEEEF0_1px,transparent_1px),linear-gradient(to_bottom,#EEEEF0_1px,transparent_1px)] [background-size:80px_80px] px-6 pt-48 pb-24 text-center dark:[background-image:linear-gradient(to_right,#1c1c1c_1px,transparent_1px),linear-gradient(to_bottom,#1c1c1c_1px,transparent_1px)]">
+    <section className="relative z-10 flex items-center justify-center overflow-hidden [background-image:linear-gradient(to_right,#EEEEF0_1px,transparent_1px),linear-gradient(to_bottom,#EEEEF0_1px,transparent_1px)] [background-size:80px_80px] px-6 pt-44 pb-20 text-center md:pt-48 md:pb-24 dark:[background-image:linear-gradient(to_right,#1c1c1c_1px,transparent_1px),linear-gradient(to_bottom,#1c1c1c_1px,transparent_1px)]">
       <div className="absolute top-40 -left-20 z-0 h-20 w-[700px] rotate-45 bg-blue-500/20 blur-3xl dark:bg-blue-500/30" />
       <div className="absolute top-40 -right-20 z-0 h-20 w-[700px] -rotate-45 bg-blue-500/20 blur-3xl dark:bg-blue-500/30" />
       <div className="absolute -bottom-[300px] left-0 -z-10 h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_#ffffff_50%,_#ffffff80_70%,_transparent_100%)] blur-3xl dark:bg-[radial-gradient(circle_at_center,_#0a0a0a_50%,_#0a0a0a80_70%,_transparent_100%)]" />
-      <div className="max-w-4xl space-y-6 text-center">
-        <h1 className="from-muted to-foreground bg-linear-to-tl from-0% to-40% bg-clip-text pb-2 text-4xl font-bold tracking-tight text-balance text-transparent md:text-6xl">
+      <div className="max-w-4xl text-center">
+        <h1 className="from-muted to-foreground mb-2 bg-linear-to-tl from-0% to-40% bg-clip-text pb-2 text-4xl font-bold tracking-tight text-balance text-transparent md:mb-6 md:text-6xl">
           Code Real Problems Grow Every Day
         </h1>
-        <p className="text-muted-foreground mx-auto max-w-2xl text-base text-balance md:text-lg">
+        <p className="text-muted-foreground mx-auto mb-6 max-w-2xl text-base text-balance md:text-lg">
           Sharpen your skills with hands-on challenges, build consistency with
           daily tasks, and rise through the leaderboard as you level up your
           coding journey

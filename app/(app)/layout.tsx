@@ -1,5 +1,6 @@
+import Header from "@/components/header/Header";
 import AppSidebar from "@/components/sidebar/AppSidebar";
-import { getUser } from "@/lib/getUser";
+import { getBasicUser } from "@/lib/getUser";
 import { cn } from "@/lib/utils";
 import { cookies } from "next/headers";
 
@@ -12,15 +13,16 @@ export default async function AppLayout({
   const isSidebarCollapsed =
     cookieStore.get("isSidebarCollapsed")?.value === "true";
 
-  const user = await getUser();
+  const user = await getBasicUser();
 
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       <AppSidebar isSidebarCollapsed={isSidebarCollapsed} user={user} />
+      <Header user={user} />
       <main
         className={cn(
           "flex-1 p-6 transition-all duration-300 ease-in-out",
-          isSidebarCollapsed ? "ml-[72px]" : "ml-64",
+          isSidebarCollapsed ? "lg:ml-[72px]" : "lg:ml-64",
         )}
       >
         {children}

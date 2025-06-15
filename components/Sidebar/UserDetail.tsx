@@ -1,16 +1,19 @@
+"use client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui";
 import { useSession } from "next-auth/react";
-import { Socials, User } from "@/app/generated/prisma";
+import { BasicUser } from "@/types";
 
 interface UserDetailProps {
   isSidebarCollapsed?: boolean;
-  user: User | (null & Socials) | null;
+  user: BasicUser | null;
+  isPopover?: boolean;
 }
 
 export default function UserDetail({
   isSidebarCollapsed,
   user,
+  isPopover = false,
 }: UserDetailProps) {
   const { data: session } = useSession();
   return (
@@ -26,7 +29,7 @@ export default function UserDetail({
           {session?.user?.name?.split(" ")[1]?.charAt(0).toUpperCase()}
         </AvatarFallback>
       </Avatar>
-      {!isSidebarCollapsed && (
+      {(!isSidebarCollapsed || isPopover) && (
         <div className="max-w-[156px]">
           <p className="truncate pb-0.5 text-sm font-semibold">
             {session?.user?.name}
