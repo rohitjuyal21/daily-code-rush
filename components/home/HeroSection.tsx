@@ -8,6 +8,11 @@ export default function HeroSection() {
       <div className="absolute top-40 -right-20 z-0 h-20 w-[700px] -rotate-45 bg-blue-500/20 blur-3xl dark:bg-blue-500/30" />
       <div className="absolute -bottom-[300px] left-0 -z-10 h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_#ffffff_50%,_#ffffff80_70%,_transparent_100%)] blur-3xl dark:bg-[radial-gradient(circle_at_center,_#0a0a0a_50%,_#0a0a0a80_70%,_transparent_100%)]" />
       <div className="max-w-4xl text-center">
+        <div className="bg-border group relative z-10 mb-2 inline-flex items-center justify-center overflow-hidden rounded-full p-px">
+          <span className="bg-background before:animate-stretch-line overflow-hidden rounded-full px-3 py-1 text-xs font-medium before:absolute before:bottom-0 before:left-0 before:z-10 before:h-px before:w-full before:bg-gradient-to-r before:from-transparent before:from-30% before:via-blue-500/80 before:via-50% before:to-transparent before:to-70% before:dark:via-blue-500">
+            🚀 Daily Coding Boost
+          </span>
+        </div>
         <h1 className="from-muted to-foreground mb-2 bg-linear-to-tl from-0% to-40% bg-clip-text pb-2 text-4xl font-bold tracking-tight text-balance text-transparent md:mb-6 md:text-6xl">
           Code Real Problems Grow Every Day
         </h1>

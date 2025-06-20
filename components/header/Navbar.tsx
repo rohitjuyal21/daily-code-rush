@@ -11,7 +11,7 @@ export default function Navbar({ session }: { session: Session | null }) {
   return (
     <div>
       <nav className="bg-background/10 fixed top-6 left-1/2 z-50 flex w-[calc(100%-32px)] max-w-4xl -translate-x-1/2 items-center justify-between rounded-full border py-1.5 pr-2 pl-4 backdrop-blur-sm md:mx-auto">
-        <div className="flex w-full items-center gap-2">
+        <div className="flex w-full items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="md:hidden">
               <Logo showText={false} />
@@ -27,7 +27,7 @@ export default function Navbar({ session }: { session: Session | null }) {
               </Button>
             ))}
           </div>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <ThemeToggle />
             <div className="md:hidden">
               <MobileNav />

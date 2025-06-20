@@ -5,6 +5,7 @@ import FeatureSection from "@/components/home/FeatureSection";
 import GrowSkills from "@/components/home/GrowSkills";
 import CtaSection from "@/components/home/CtaSection";
 import { auth } from "@/auth";
+import Footer from "@/components/home/Footer";
 export default async function Home() {
   const session = await auth();
   return (
@@ -15,6 +16,7 @@ export default async function Home() {
       <FeatureSection />
       <GrowSkills />
       <CtaSection />
+      <Footer />
     </main>
   );
 }

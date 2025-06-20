@@ -11,7 +11,7 @@ export default function GrowSkills() {
           <h2 className="mb-4 text-center text-4xl font-bold text-balance md:text-left">
             Level Up with Real-World Skills
           </h2>
-          <p className="text-muted-foreground text-center text-lg text-balance md:text-right">
+          <p className="text-muted-foreground text-center text-lg text-balance md:text-left">
             Dive into hands-on coding experiences that go beyond theory. Build
             real projects, explore new tools, and strengthen your
             problem-solving skills—all while preparing yourself for real-world

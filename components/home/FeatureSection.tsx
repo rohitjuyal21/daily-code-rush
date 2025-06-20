@@ -39,15 +39,15 @@ export default function FeatureSection() {
           {Features.map((feature) => (
             <div
               key={feature.title}
-              className="group relative z-10 overflow-hidden rounded-xl p-px transition-all duration-300"
+              className="group bg-border relative z-10 overflow-hidden rounded-xl p-px transition-all duration-300"
             >
               <div className="group-hover:animate-card-spin absolute inset-0 -z-10 scale-[8] bg-conic-90 from-blue-500 from-0% to-transparent to-20% opacity-0 group-hover:opacity-100" />
               <div className="group-hover:animate-card-spin absolute inset-0 -z-10 scale-[8] -bg-conic-90 from-blue-500 from-0% to-transparent to-20% opacity-0 group-hover:opacity-100" />
 
-              <div className="bg-background flex min-h-[200px] flex-col justify-between rounded-xl border p-6 hover:bg-gray-50 dark:hover:bg-neutral-900">
+              <div className="bg-background flex min-h-[200px] flex-col justify-between rounded-xl p-6 hover:bg-gray-50 dark:hover:bg-neutral-900">
                 <h4 className="mb-2 text-2xl font-bold">{feature.title}</h4>
                 <p className="text-muted-foreground">{feature.description}</p>
-                <div className="absolute top-4 right-4 opacity-50 transition-all duration-300 group-hover:-rotate-12">
+                <div className="absolute top-4 right-4 opacity-50 transition-all duration-300 group-hover:-rotate-12 group-hover:opacity-100">
                   <feature.icon className="text-primary h-14 w-14 transition-all duration-300 group-hover:text-blue-500" />
                 </div>
               </div>
